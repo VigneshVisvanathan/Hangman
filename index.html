@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+	
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+var randword=[];
+var total_count=0;
+var hang_count=0;
+var present=[];
+var wincounter=0;
+function generate_div() {
+var body3 = document.getElementsByTagName("body")[0];
+var div1 = document.createElement("div");
+div1.id='divmain';
+div1.style.margin='10px';
+body3.appendChild(div1);
+
+}
+function displayimg(n){
+if (n<=5){
+var img=["img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg","img6.jpg"]
+var Image1=new Image(600,400);
+Image1.src=img[n];
+document.getElementById('divmain').innerHTML="";
+}
+document.getElementById('divmain').appendChild(Image1);
+}
+
+function generate_button() {
+var body2 = document.getElementsByTagName("body")[0];
+var div2 = document.createElement("div");
+div2.id='divsub1';
+for (k=65;k<=90;k++){
+
+var btn=document.createElement("button");
+var character=String.fromCharCode(k);
+btn.innerHTML=character;
+btn.id=k;
+btn.style.height='40px';
+btn.style.width='40px';
+btn.style.padding='5px';
+btn.style.textAlign = "center";
+
+div2.appendChild(btn);
+body2.appendChild(div2);
+div2.style.display="inline-block";
+btn.setAttribute('class','btns');
+btn.setAttribute('onclick','idgiver('+ k+')');
+}
+}
+var words=['AMERICA','ALGERIA','INDIA','CHINA','JAPAN'];
+function generate_word(){
+var lengther=(words.length);
+var randval=Math.floor(Math.random()*lengther);
+generate_clue(randval);
+randword=words[randval];
+var worder1=randword.length;
+generate_alphabetdivs(worder1)
+console.log(randword);
+console.log([...randword]);
+
+}
+
+function idgiver(kval){
+console.log(kval);
+var notthere=0;
+total_count++;
+for(var z=0;z<randword.length;z++){
+console.log(randword[z].charCodeAt());
+if(kval===randword[z].charCodeAt()){
+present.push(randword[z]);
+console.log(present);
+notthere=1;
+var fillerite=String.fromCharCode(kval);
+document.getElementById(z).innerHTML=fillerite;
+wincounter++
+if(wincounter==randword.length){
+for (var n=0;n<26;n++){
+var butoner=document.getElementsByClassName('btns')[n];
+butoner.disabled=true;
+}
+alert("YOU WON")
+}
+}
+}
+if(notthere==0){ 
+hang_count++
+displayimg(hang_count);
+if(hang_count==5){
+
+for (var n=0;n<26;n++){
+var butoner=document.getElementsByClassName('btns')[n];
+butoner.disabled=true;
+
+}
+alert("Game Over")
+}
+
+console.log(hang_count);
+
+}
+document.getElementById(kval).disabled=true;
+
+}
+
+
+function generate_alphabetdivs(worder) {
+		var body4 = document.getElementsByTagName("body")[0];
+            var div3 = document.createElement("div");
+			div3.id='divsub2';
+        for(h=0;h<worder;h++)
+        {
+			
+			var divs=document.createElement("div");
+			
+            divs.id=h;
+            divs.innerHTML='';
+            divs.style.width="100px";
+            divs.style.height="50px";
+            divs.style.padding="25px";
+            divs.style.margin="5px";
+            divs.style.display="inline-block";
+            divs.style.textAlign="center"
+            divs.style.borderBottom="thick solid";
+            //div.innerHTML.style.opacity="0";
+            div3.appendChild(divs);
+			body4.appendChild(div3);
+
+        }
+		}
+function generate_clue(clcountry) {
+var clues=[' 4th largest country in the world by land area and 3rd by population',' second largest African country, second to Sudan','never invaded any country in her last 100000 years of history','corona virus','Dragon Ball z'];
+var body5 = document.getElementsByTagName("body")[0];
+var cluediv= document.createElement("div");
+cluediv.id='divsub3';
+cluediv.innerHTML='<h4>clue:'+clues[clcountry]+'-Guess which country-YOU HAVE FIVE CHANCES</h4>'
+cluediv.style.margin='10px';
+body5.appendChild(cluediv);
+}
+
+generate_div()
+generate_word()
+generate_button()
+console.log(total_count);
+displayimg(hang_count)
+
+
+</script>
+</body>
+</html>
